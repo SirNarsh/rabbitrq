@@ -1,10 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "sirnarsh/rabbitrq",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Rabbit Requeue, A Backup and requeue system for your MQ",
     "keywords": [
-        "framework",
-        "laravel"
+        "rabbitrq",
+        "rabbitmq",
     ],
     "license": "MIT",
     "require": {
