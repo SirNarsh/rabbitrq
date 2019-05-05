@@ -4,7 +4,7 @@
     "description": "Rabbit Requeue, A Backup and requeue system for your MQ",
     "keywords": [
         "rabbitrq",
-        "rabbitmq",
+        "rabbitmq"
     ],
     "license": "MIT",
     "require": {
