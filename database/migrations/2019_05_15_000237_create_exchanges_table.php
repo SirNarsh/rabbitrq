@@ -16,7 +16,7 @@ class CreateExchangesTable extends Migration
         Schema::create('exchanges', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('exchange_name')->unique();
-            $table->enum('type', ['topic', 'header', 'direct', 'fanout']);
+            $table->enum('type', ['topic', 'headers', 'direct', 'fanout']);
             $table->dateTime('last_seen');
             $table->boolean('is_ignored');
             $table->timestamps();
