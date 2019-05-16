@@ -12,6 +12,8 @@ services:
     - "DB_HOST=database"
     ports:
     - "8080:80"
+    links:
+      - database
   # The Database
   database:
     image: mysql:5.7
