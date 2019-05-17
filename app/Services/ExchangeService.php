@@ -28,4 +28,15 @@ class ExchangeService
             // @todo Dispatch rebind job.
         }
     }
+
+
+    /**
+     * Bind all active exchange points
+     */
+    public static function bindAllExchanges() {
+        foreach(Exchange::where('is_ignored', '=', 0)->all() as $thisExchange) {
+            MessagingAmqpService::bindExchange($thisExchange->exchange_name);
+        }
+        // @todo Should we also send unbind for ignored exchanges?
+    }
 }
