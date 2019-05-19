@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\ExchangeService;
 use App\Services\MessageService;
 use App\Services\MessagingAmqpService;
 use Illuminate\Console\Command;
@@ -39,8 +40,10 @@ class CommandsListener extends Command
      */
     public function handle()
     {
+        MessagingAmqpService::declareSysQueues();
+        ExchangeService::bindAllExchanges();
         MessagingAmqpService::listen(
-            config_path('amqp.log_queue'),
+            config('amqp.commands_queue'),
             [ MessageService::class, 'consumeLog' ]
         );
     }

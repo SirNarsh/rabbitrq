@@ -15,7 +15,7 @@ class MessageService {
         // @todo consume message
         if(env('APP_DEBUG') == true){
             echo PHP_EOL . PHP_EOL .'### Got Message (consumeCommand):' . PHP_EOL;
-            dd($message);
+            var_dump($message);
         }
         return true;
     }
@@ -30,7 +30,7 @@ class MessageService {
         // @todo consume message
         if(env('APP_DEBUG') == true){
             echo PHP_EOL . PHP_EOL .'### Got Message (consumeCommand):' . PHP_EOL;
-            dd($message);
+            var_dump($message);
         }
         return true;
     }

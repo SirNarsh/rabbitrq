@@ -49,8 +49,8 @@ class MessagingAmqpService
      * @return void
      */
     public static function declareSysQueues(): void {
-        self::getChannel()->queue_declare(config('ampq.log_queue'), false, true);
-        self::getChannel()->queue_declare(config('ampq.commands_queue'), false, true);
+        self::getChannel()->queue_declare(config('amqp.log_queue'), false, true,false, false);
+        self::getChannel()->queue_declare(config('amqp.commands_queue'), false, true, false, false);
     }
 
     /**
@@ -59,7 +59,7 @@ class MessagingAmqpService
      * @return mixed|null
      */
     public static function bindExchange(string $exchange) {
-        return self::getChannel()->exchange_bind(
+        return self::getChannel()->queue_bind(
             config('amqp.log_queue'),
             $exchange
         );
@@ -102,7 +102,7 @@ class MessagingAmqpService
             $queue,
             '',
             false,
-            true,
+            false,
             false,
             false,
             function ($message) use ($callback) {
