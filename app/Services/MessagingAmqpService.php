@@ -89,4 +89,39 @@ class MessagingAmqpService
             $exchange
         );
     }
+
+    /**
+     * Start a consumer for the queue with name, and invoke callback on messages
+     * @param string $queue
+     * @param callable $callback
+     * @throws \ErrorException
+     */
+    public static function listen(string $queue, callable $callback)
+    {
+        self::getChannel()->basic_consume(
+            $queue,
+            '',
+            false,
+            true,
+            false,
+            false,
+            function ($message) use ($callback) { $callback($message); }
+        );
+
+        register_shutdown_function(function () { MessagingAmqpService::shutdown(); });
+
+        // Loop as long as the channel has callbacks registered
+        while (self::getChannel()->is_consuming()) {
+            self::getChannel()->wait();
+        }
+    }
+
+    /**
+     * To be called on shutdown
+     * @throws \Exception
+     */
+    public static function shutdown() {
+        self::getChannel()->close();
+        self::getConnection()->close();
+    }
 }
