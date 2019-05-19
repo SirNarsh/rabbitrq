@@ -105,7 +105,13 @@ class MessagingAmqpService
             true,
             false,
             false,
-            function ($message) use ($callback) { $callback($message); }
+            function ($message) use ($callback) {
+                if($callback($message)){
+                    $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
+                } else {
+                    $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
+                }
+            }
         );
 
         register_shutdown_function(function () { MessagingAmqpService::shutdown(); });
