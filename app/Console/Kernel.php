@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CommandsListener;
+use App\Console\Commands\LogListener;
 use App\Console\Commands\ReloadExchanges;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -15,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ReloadExchanges::class,
+        LogListener::class,
+        CommandsListener::class,
     ];
 
     /**

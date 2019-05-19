@@ -14,6 +14,30 @@ services:
     - "8080:80"
     links:
       - database
+  # Laravel PHP-Apache
+  logListener:
+    image: sirnarsh/laravel-docker:cli-latest
+    entrypoint: 'php artisan command:LogListener'
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+    links:
+      - database
+  # Laravel PHP-Apache
+  commandsListener:
+    image: sirnarsh/laravel-docker:cli-latest
+    entrypoint: 'php artisan command:CommandsListener'
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+    links:
+      - database
   # The Database
   database:
     image: mysql:5.7
