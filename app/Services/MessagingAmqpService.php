@@ -70,7 +70,7 @@ class MessagingAmqpService
      * @param AMQPMessage $message
      * @param $queue
      */
-    public static function sendMessage(AMQPMessage $message, string $queue): void {
+    public static function sendMessage(AMQPMessage $message, string $queue) {
         return self::getChannel()->basic_publish(
             $message,
             '',
