@@ -20,7 +20,7 @@ class MessagingAmqpService
     /**
      * @return AMQPStreamConnection
      */
-    public static function getConnection() {
+    public static function getConnection(): AMQPStreamConnection {
         if(!self::$connection) {
             self::$connection = new AMQPStreamConnection(
                 config('amqp.host'),
@@ -36,7 +36,7 @@ class MessagingAmqpService
     /**
      * @return AMQPChannel
      */
-    public static function getChannel() {
+    public static function getChannel(): AMQPChannel {
         if(!self::$channel) {
             self::$channel = self::getConnection()->channel();
         }
@@ -45,11 +45,20 @@ class MessagingAmqpService
 
 
     /**
+     *  Declare sys queues log & commands ( You'll still need to run ExchangeService::bindAllExchanges() )
+     * @return void
+     */
+    public static function declareSysQueues(): void {
+        self::getChannel()->queue_declare(config('ampq.log_queue'), false, true);
+        self::getChannel()->queue_declare(config('ampq.commands_queue'), false, true);
+    }
+
+    /**
      *  Bind rabbitrq log_queue to exchange (So we can start logging messages)
      * @param $exchange
      * @return mixed|null
      */
-    public static function bindExchange($exchange) {
+    public static function bindExchange(string $exchange) {
         return self::getChannel()->exchange_bind(
             config('amqp.log_queue'),
             $exchange
@@ -61,7 +70,7 @@ class MessagingAmqpService
      * @param AMQPMessage $message
      * @param $queue
      */
-    public static function sendMessage(AMQPMessage $message, $queue) {
+    public static function sendMessage(AMQPMessage $message, string $queue): void {
         return self::getChannel()->basic_publish(
             $message,
             '',
@@ -74,7 +83,7 @@ class MessagingAmqpService
      * @param $exchange
      * @return mixed
      */
-    public static function unbindExchange($exchange) {
+    public static function unbindExchange(string $exchange) {
         return self::getChannel()->exchange_unbind(
             config('amqp.log_queue'),
             $exchange
