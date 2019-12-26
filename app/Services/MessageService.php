@@ -4,17 +4,19 @@ namespace App\Services;
 
 use PhpAmqpLib\Message\AMQPMessage;
 
-class MessageService {
+class MessageService
+{
 
     /**
      * Consume message incoming to log queue
      * @param AMQPMessage $message
      * @return bool
      */
-    public static function consumeLog(AMQPMessage $message): bool {
+    public static function consumeLog(AMQPMessage $message): bool
+    {
         // @todo consume message
-        if(env('APP_DEBUG') == true){
-            echo PHP_EOL . PHP_EOL .'### Got Message (consumeCommand):' . PHP_EOL;
+        if (env('APP_DEBUG') == true) {
+            echo PHP_EOL . PHP_EOL . '### Got Message (consumeCommand):' . PHP_EOL;
             var_dump($message);
         }
         return true;
@@ -26,10 +28,11 @@ class MessageService {
      * @param AMQPMessage $message
      * @return bool
      */
-    public static function consumeCommand(AMQPMessage $message): bool {
+    public static function consumeCommand(AMQPMessage $message): bool
+    {
         // @todo consume message
-        if(env('APP_DEBUG') == true){
-            echo PHP_EOL . PHP_EOL .'### Got Message (consumeCommand):' . PHP_EOL;
+        if (env('APP_DEBUG') == true) {
+            echo PHP_EOL . PHP_EOL . '### Got Message (consumeCommand):' . PHP_EOL;
             var_dump($message);
         }
         return true;

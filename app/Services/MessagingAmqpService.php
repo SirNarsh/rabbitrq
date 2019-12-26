@@ -11,17 +11,18 @@ class MessagingAmqpService
     /**
      * @var AMQPStreamConnection?
      */
-    static $connection ;
+    private static $connection ;
     /**
      * @var AMQPChannel
      */
-    static $channel;
+    private static $channel;
 
     /**
      * @return AMQPStreamConnection
      */
-    public static function getConnection(): AMQPStreamConnection {
-        if(!self::$connection) {
+    public static function getConnection(): AMQPStreamConnection
+    {
+        if (!self::$connection) {
             self::$connection = new AMQPStreamConnection(
                 config('amqp.host'),
                 config('amqp.port'),
@@ -36,8 +37,9 @@ class MessagingAmqpService
     /**
      * @return AMQPChannel
      */
-    public static function getChannel(): AMQPChannel {
-        if(!self::$channel) {
+    public static function getChannel(): AMQPChannel
+    {
+        if (!self::$channel) {
             self::$channel = self::getConnection()->channel();
         }
         return self::$channel;
@@ -48,8 +50,9 @@ class MessagingAmqpService
      *  Declare sys queues log & commands ( You'll still need to run ExchangeService::bindAllExchanges() )
      * @return void
      */
-    public static function declareSysQueues(): void {
-        self::getChannel()->queue_declare(config('amqp.log_queue'), false, true,false, false);
+    public static function declareSysQueues(): void
+    {
+        self::getChannel()->queue_declare(config('amqp.log_queue'), false, true, false, false);
         self::getChannel()->queue_declare(config('amqp.commands_queue'), false, true, false, false);
     }
 
@@ -58,7 +61,8 @@ class MessagingAmqpService
      * @param $exchange
      * @return mixed|null
      */
-    public static function bindExchange(string $exchange) {
+    public static function bindExchange(string $exchange)
+    {
         return self::getChannel()->queue_bind(
             config('amqp.log_queue'),
             $exchange
@@ -70,7 +74,8 @@ class MessagingAmqpService
      * @param AMQPMessage $message
      * @param $queue
      */
-    public static function sendMessage(AMQPMessage $message, string $queue) {
+    public static function sendMessage(AMQPMessage $message, string $queue)
+    {
         return self::getChannel()->basic_publish(
             $message,
             '',
@@ -83,7 +88,8 @@ class MessagingAmqpService
      * @param $exchange
      * @return mixed
      */
-    public static function unbindExchange(string $exchange) {
+    public static function unbindExchange(string $exchange)
+    {
         return self::getChannel()->exchange_unbind(
             config('amqp.log_queue'),
             $exchange
@@ -106,7 +112,7 @@ class MessagingAmqpService
             false,
             false,
             function ($message) use ($callback) {
-                if($callback($message)){
+                if ($callback($message)) {
                     $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
                 } else {
                     $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
@@ -114,7 +120,9 @@ class MessagingAmqpService
             }
         );
 
-        register_shutdown_function(function () { MessagingAmqpService::shutdown(); });
+        register_shutdown_function(function () {
+            MessagingAmqpService::shutdown();
+        });
 
         // Loop as long as the channel has callbacks registered
         while (self::getChannel()->is_consuming()) {
@@ -126,7 +134,8 @@ class MessagingAmqpService
      * To be called on shutdown
      * @throws \Exception
      */
-    public static function shutdown() {
+    public static function shutdown()
+    {
         self::getChannel()->close();
         self::getConnection()->close();
     }

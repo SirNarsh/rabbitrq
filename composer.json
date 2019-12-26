@@ -14,7 +14,8 @@
         "laravel/framework": "^6.0",
         "laravel/passport": "^8.0",
         "laravel/tinker": "^1.0",
-        "php-amqplib/php-amqplib": "^2.9"
+        "php-amqplib/php-amqplib": "^2.9",
+        "ext-json": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

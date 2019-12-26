@@ -15,14 +15,15 @@ class ExchangeService
      * Reload all RabbitMQ Exchanges from management API'
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function reloadExchanges() {
-        foreach(MessagingApiService::getExchanges() as $exchangeInfo) {
+    public static function reloadExchanges()
+    {
+        foreach (MessagingApiService::getExchanges() as $exchangeInfo) {
             // ignore anything that starts with amqp.
-            if(strpos($exchangeInfo['name'],'amqp') === 0){
+            if (strpos($exchangeInfo['name'], 'amqp') === 0) {
                 continue;
             }
             // ignore default exchange
-            if($exchangeInfo['name'] === ''){
+            if ($exchangeInfo['name'] === '') {
                 continue;
             }
 
@@ -42,8 +43,9 @@ class ExchangeService
     /**
      * Bind all active exchange points
      */
-    public static function bindAllExchanges() {
-        foreach(Exchange::where('is_ignored', '=', 0)->get() as $thisExchange) {
+    public static function bindAllExchanges()
+    {
+        foreach (Exchange::where('is_ignored', '=', 0)->get() as $thisExchange) {
             MessagingAmqpService::bindExchange($thisExchange->exchange_name);
         }
         // @todo Should we also send unbind for ignored exchanges?

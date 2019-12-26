@@ -16,7 +16,8 @@ class MessagingApiService
      * @return bool|mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function get($path) {
+    public static function get($path)
+    {
         $client = new Client();
         $res = $client->request('GET', config('amqp.api') . '/api/' . $path, [
             'auth' => [
@@ -24,7 +25,7 @@ class MessagingApiService
                 config('amqp.pass')
             ]
         ]);
-        if($res->getStatusCode() !== 200) {
+        if ($res->getStatusCode() !== 200) {
             return false;
         }
         return json_decode($res->getBody(), true);
@@ -37,6 +38,6 @@ class MessagingApiService
      */
     public static function getExchanges()
     {
-       return self::get('exchanges');
+        return self::get('exchanges');
     }
 }
