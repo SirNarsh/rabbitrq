@@ -1,0 +1,774 @@
+---
+openapi: 3.0.2
+info:
+  title: RabbitRQ API
+  version: 1.0.0
+  description: |-
+    Rabbit RQ (Rabbit Requeue), A backup, re-queue & data persistence system for rabbitmq, helpful for auditing, microservice rebuilds after bug fixes and more.
+    (For basic usage use app already shipped with rabbitrq, API is only needed for advanced usage or automation)
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+paths:
+  /permissions:
+    summary: Path used to manage the list of permissions.
+    description: The REST endpoint/path used to list and create zero or more `Permission`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Permission'
+          description: Successful response - returns an array of `Permission` entities.
+      operationId: getpermissions
+      summary: List All permissions
+      description: Gets a list of all `Permission` entities.
+    post:
+      requestBody:
+        description: A new `Permission` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Permission'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createPermission
+      summary: Create a Permission
+      description: Creates a new instance of a `Permission`.
+  /permissions/{permissionId}:
+    summary: Path used to manage a single Permission.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `Permission`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+          description: Successful response - returns a single `Permission`.
+      operationId: getPermission
+      summary: Get a Permission
+      description: Gets the details of a single instance of a `Permission`.
+    put:
+      requestBody:
+        description: Updated `Permission` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Permission'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updatePermission
+      summary: Update a Permission
+      description: Updates an existing `Permission`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deletePermission
+      summary: Delete a Permission
+      description: Deletes an existing `Permission`.
+    parameters:
+    - name: permissionId
+      description: A unique identifier for a `Permission`.
+      schema:
+        type: string
+      in: path
+      required: true
+  /exchanges:
+    summary: Path used to manage the list of exchanges.
+    description: The REST endpoint/path used to list and create zero or more `Exchange`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Exchange'
+          description: Successful response - returns an array of `Exchange` entities.
+      operationId: getexchanges
+      summary: List All exchanges
+      description: Gets a list of all `Exchange` entities.
+    post:
+      requestBody:
+        description: A new `Exchange` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Exchange'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createExchange
+      summary: Create a Exchange
+      description: Creates a new instance of a `Exchange`.
+  /exchanges/{exchangeId}:
+    summary: Path used to manage a single Exchange.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `Exchange`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exchange'
+          description: Successful response - returns a single `Exchange`.
+      operationId: getExchange
+      summary: Get a Exchange
+      description: Gets the details of a single instance of a `Exchange`.
+    put:
+      requestBody:
+        description: Updated `Exchange` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Exchange'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateExchange
+      summary: Update a Exchange
+      description: Updates an existing `Exchange`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteExchange
+      summary: Delete a Exchange
+      description: Deletes an existing `Exchange`.
+    parameters:
+    - name: exchangeId
+      description: A unique identifier for a `Exchange`.
+      schema:
+        type: string
+      in: path
+      required: true
+  /users:
+    summary: Path used to manage the list of users.
+    description: The REST endpoint/path used to list and create zero or more `User`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: Successful response - returns an array of `User` entities.
+      operationId: getusers
+      summary: List All users
+      description: Gets a list of all `User` entities.
+    post:
+      requestBody:
+        description: A new `User` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createUser
+      summary: Create a User
+      description: Creates a new instance of a `User`.
+  /users/{userId}:
+    summary: Path used to manage a single User.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `User`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Successful response - returns a single `User`.
+      operationId: getUser
+      summary: Get a User
+      description: Gets the details of a single instance of a `User`.
+    put:
+      requestBody:
+        description: Updated `User` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateUser
+      summary: Update a User
+      description: Updates an existing `User`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteUser
+      summary: Delete a User
+      description: Deletes an existing `User`.
+    parameters:
+    - name: userId
+      description: A unique identifier for a `User`.
+      schema:
+        type: string
+      in: path
+      required: true
+  /me: {}
+  /my_permissions:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserPermission'
+          description: Get all permissions current (logged in) user have
+  /actions:
+    summary: Path used to manage the list of actions.
+    description: The REST endpoint/path used to list and create zero or more `Action`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Action'
+          description: Successful response - returns an array of `Action` entities.
+      operationId: getactions
+      summary: List All actions
+      description: Gets a list of all `Action` entities.
+    post:
+      requestBody:
+        description: A new `Action` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Action'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createAction
+      summary: Create a Action
+      description: Creates a new instance of a `Action`.
+  /actions/{actionId}:
+    summary: Path used to manage a single Action.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `Action`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+          description: Successful response - returns a single `Action`.
+      operationId: getAction
+      summary: Get a Action
+      description: Gets the details of a single instance of a `Action`.
+    put:
+      requestBody:
+        description: Updated `Action` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Action'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateAction
+      summary: Update a Action
+      description: Updates an existing `Action`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteAction
+      summary: Delete a Action
+      description: Deletes an existing `Action`.
+    parameters:
+    - name: actionId
+      description: A unique identifier for a `Action`.
+      schema:
+        type: string
+      in: path
+      required: true
+  /user_permissions:
+    summary: Path used to manage the list of userpermissions.
+    description: The REST endpoint/path used to list and create zero or more `UserPermission`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    post:
+      requestBody:
+        description: A new `UserPermission` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPermission'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createUserPermission
+      summary: Create a UserPermission
+      description: Creates a new instance of a `UserPermission`.
+  /user_permissions/{userpermissionId}:
+    summary: Path used to manage a single UserPermission.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `UserPermission`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPermission'
+          description: Successful response - returns a single `UserPermission`.
+      operationId: getUserPermission
+      summary: Get a UserPermission
+      description: Gets the details of a single instance of a `UserPermission`.
+    put:
+      requestBody:
+        description: Updated `UserPermission` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPermission'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateUserPermission
+      summary: Update a UserPermission
+      description: Updates an existing `UserPermission`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteUserPermission
+      summary: Delete a UserPermission
+      description: Deletes an existing `UserPermission`.
+    parameters:
+    - name: userpermissionId
+      description: A unique identifier for a `UserPermission`.
+      schema:
+        type: string
+      in: path
+      required: true
+  /messages:
+    summary: Path used to manage the list of messages.
+    description: The REST endpoint/path used to list and create zero or more `Message`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+          description: Successful response - returns an array of `Message` entities.
+      operationId: getmessages
+      summary: List All messages
+      description: Gets a list of all `Message` entities.
+    post:
+      requestBody:
+        description: A new `Message` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createMessage
+      summary: Create a Message
+      description: Creates a new instance of a `Message`.
+  /messages/{messageId}:
+    summary: Path used to manage a single Message.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `Message`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: Successful response - returns a single `Message`.
+      operationId: getMessage
+      summary: Get a Message
+      description: Gets the details of a single instance of a `Message`.
+    put:
+      requestBody:
+        description: Updated `Message` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateMessage
+      summary: Update a Message
+      description: Updates an existing `Message`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteMessage
+      summary: Delete a Message
+      description: Deletes an existing `Message`.
+    parameters:
+    - name: messageId
+      description: A unique identifier for a `Message`.
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    Permission:
+      title: Root Type for Permission
+      description: ""
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        code:
+          type: string
+        label:
+          type: string
+      example:
+        id: 1
+        code: PERM_OUTBOUND
+        label: Send outbound message
+    Exchange:
+      title: Root Type for Exchange
+      description: A RabbitMQ exchange point
+      required: []
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          description: Exact exchange point name as in RabbitMQ & other dependencies
+          type: string
+        label:
+          description: A free string (label) user to identify this exchange in the
+            UI
+          type: string
+        manually_added:
+          description: If true, this exchange was created by user not by auto detection
+            request
+          type: boolean
+      example:
+        id: 1
+        name: exchange.point.name
+        label: Exchange A
+        manually_added: false
+    User:
+      title: Root Type for User
+      description: ""
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        id: 1
+        name: John Doe
+        email: email@example.com
+        password: password here
+    UserPermission:
+      title: Root Type for UserPermission
+      description: Links a user to a permission (also can be permission on specific
+        exchange if exchange_id isset)
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        user_id:
+          format: int32
+          type: integer
+        permission_id:
+          format: int32
+          type: integer
+        exchange_id:
+          format: int32
+          description: |-
+            Nullable, id of exchange this user permission is limited to
+            If null it's a global permission
+          type: integer
+        permission:
+          $ref: '#/components/schemas/Permission'
+          description: ""
+        exchange:
+          $ref: '#/components/schemas/Exchange'
+          description: ""
+      example:
+        id: 93
+        user_id: 24
+        permission_id: 55
+        exchange_id: 4
+        permission:
+          id: 89
+          code: PERMISSION_CODE
+          label: Can do that
+        exchange:
+          id: 31
+          name: exchange.name
+          label: That exchange
+          manually_added: true
+    Action:
+      title: Root Type for Action
+      description: All actions including (internal, outbound & inbound)
+      required: []
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        action_type_id:
+          format: int32
+          type: integer
+        user_id:
+          format: int32
+          type: integer
+        source_exchange_id:
+          format: int32
+          description: For actions that depend on an exchange
+          type: integer
+        source_message_id:
+          format: int32
+          description: For actions that depend on previous messages, Example "RESEND_MESSAGE_BY_ID"
+          type: integer
+        new_message_id:
+          format: int32
+          description: Id of message created by this action
+          type: integer
+        target_exchange_id:
+          format: int32
+          description: Exchange affected by this action
+          type: integer
+      example:
+        id: 98
+        action_type_id: 33
+        user_id: 82
+        source_exchange_id: 26
+        source_message_id: 72
+        new_message_id: 15
+        target_exchange_id: 70
+    PaginationMeta:
+      title: Root Type for PaginationMeta
+      description: ""
+      type: object
+      properties:
+        total:
+          format: int32
+          type: integer
+        per_page:
+          format: int32
+          type: integer
+        current_page:
+          format: int32
+          type: integer
+        last_page:
+          format: int32
+          type: integer
+        first_page_url:
+          type: string
+        last_page_url:
+          type: string
+        next_page_url:
+          type: string
+        prev_page_url:
+          type: string
+        path:
+          type: string
+        from:
+          format: int32
+          type: integer
+        to:
+          format: int32
+          type: integer
+      example:
+        total: 50
+        per_page: 15
+        current_page: 1
+        last_page: 4
+        first_page_url: http://laravel.app?page=1
+        last_page_url: http://laravel.app?page=4
+        next_page_url: http://laravel.app?page=2
+        path: http://laravel.app
+        from: 1
+        to: 15
+    ActionType:
+      title: Root Type for ActionType
+      description: ""
+      required:
+      - target
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        action_code:
+          type: string
+        description:
+          type: string
+        target:
+          description: |-
+            System that gets affected by this action
+            Internal: "Actions applied by this app, that won't have external effect"
+            Outbound: "Actions applied by rabbitrq, that will send a message outbound"
+            Inbound: "Incoming data from another app that is logged here"
+          enum:
+          - INTENRAL
+          - INBOUND
+          - OUTBOUND
+          type: string
+      example:
+        id: 1
+        action_code: RESEND_MESSAGE_BY_ID
+        description: Resend a message by it's id
+    Message:
+      title: Root Type for Message
+      description: RabbitMQ message
+      required:
+      - creation_method
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        creation_method:
+          enum:
+          - FILE_IMPORT
+          - TEXT_IMPORT
+          - MANUALLY_ADDED
+          - INBOUND
+          type: string
+        body:
+          type: string
+        body_size:
+          format: int32
+          type: integer
+        content_encoding:
+          type: string
+        priority:
+          format: int32
+          type: integer
+        coorelation_id:
+          type: string
+        reply_to:
+          type: string
+        expiration:
+          type: string
+        message_id:
+          type: string
+        timestamp:
+          format: int32
+          type: integer
+        type:
+          type: string
+        user_id:
+          type: string
+        app_id:
+          type: string
+        cluster_id:
+          type: string
+      example:
+        id: 1
+        creation_method: FILE_IMPORT
+        body: TEST
+        body_size: 4
+        content_encoding: text/plain
+        priority: 255
+        coorelation_id: shortstr
+        reply_to: shortstr
+        expiration: shortstr
+        message_id: shortstr
+        timestamp: 1234567800
+        type: shortstr
+        user_id: shortstr
+        app_id: shortstr
+        cluster_id: shortstr
+  responses:
+    ActionsPaginatedResponse:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/PaginationMeta'
+            - type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Action'
+      description: ""
+  securitySchemes:
+    OAuthPwd:
+      flows:
+        password:
+          tokenUrl: http://localhost:8080/oauth/tokens
+          refreshUrl: http://localhost:8080/oauth/tokens
+          scopes:
+            '*': ""
+      type: oauth2
+      description: Password login via OAuth 2.0
+security:
+- OAuthPwd:
+  - '*'
+tags:
+- name: Users & Permissions
+  description: ""
