@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class AppInfoController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return [
             'name' => config('app.name'),
             'env' => config('app.env'),

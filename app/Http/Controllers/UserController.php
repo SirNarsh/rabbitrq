@@ -21,7 +21,6 @@ class UserController extends Controller
             // Only check permissions after first user creation (App Setup)
             $this->authorizeResource(User::class);
         }
-
     }
 
     /**
@@ -39,7 +38,7 @@ class UserController extends Controller
             'password' => $hashedPwd,
         ]);
 
-        if(User::count() === 1) {
+        if (User::count() === 1) {
             // Grant first user all permissions
             UserPermission::create([
                 'user_id' => $newUser->id,

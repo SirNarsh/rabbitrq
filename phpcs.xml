@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <arg name="extensions" value="php" />
+    <arg name="report" value="full" />
+
+    <rule ref="PSR12" />
+</ruleset>
