@@ -15,12 +15,12 @@ class UserTest extends TestCase
      */
     public function testCreatingFirstUser()
     {
-        $response = $this->postJson('user', [
+        $response = $this->postJson('users', [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' => 'password'
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 }
