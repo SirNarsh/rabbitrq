@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function() {
-    return 'RabbitRQ';
-});
+Route::get('info', 'AppInfoController@index');
+
+Route::apiResource('users', 'UserController');
